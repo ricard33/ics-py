@@ -118,9 +118,13 @@ class TextConverterClass(ValueConverter[str]):
                 elif c2 == "\\":
                     yield "\\"
                 else:
-                    raise ValueError(f"can't handle escaped character '{c2}'")
+                    # raise ValueError(f"can't handle escaped character '{c2}'")
+                    warnings.warn("can't handle escaped character '%s'" % c2)
+                    yield c2
             elif c1 in ";,\n\r":
-                raise ValueError(f"unescaped character '{c1}' in TEXT value")
+                # raise ValueError(f"unescaped character '{c1}' in TEXT value")
+                warnings.warn("unescaped character '%s' in TEXT value" % c1)
+                yield c1
             else:
                 yield c1
 
